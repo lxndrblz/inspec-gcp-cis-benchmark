@@ -9,7 +9,7 @@ This repository holds the Google Cloud Platform (GCP) Center for Internet Securi
 
 The profiles cover all controls of the current version. Due to missing APIs and/or required manual verfication, the following controls are currently not scored:
 
-https://github.com/search?q=repo%3Alxndrblz%2Finspec-gcp-cis-benchmark%20cis_scored%3A%20false&type=code
+https://github.com/search?q=repo%3Alxndrblz%2Finspec-gcp-cis-benchmark+%22cis_scored%3A+false%22&type=code
 
 ## 🚀 Usage
 
