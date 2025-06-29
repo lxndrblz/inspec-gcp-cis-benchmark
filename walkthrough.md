@@ -26,9 +26,9 @@ Continue on to the next step to start setting up your tutorial.
 InSpec is distributed as a Docker image. All you need to do is pull the image from the repository and create a function to run InSpec:
 
 ```bash
-docker pull chef/inspec:4.26.15
+docker pull cincproject/auditor:5.22.80
 
-function inspec-docker { docker run -it -e GOOGLE_AUTH_SUPPRESS_CREDENTIALS_WARNINGS=true -e CHEF_LICENSE=accept-no-persist --rm -v ~/.config:/root/.config -v $(pwd):/share chef/inspec:4.26.15 "$@"; }
+function inspec-docker { docker run -it -e GOOGLE_AUTH_SUPPRESS_CREDENTIALS_WARNINGS=true -e CHEF_LICENSE=accept-no-persist --rm -v ~/.config:/root/.config -v $(pwd):/share cincproject/auditor:5.22.80 "$@"; }
 ```
 
 **Tip**: Click the Copy to Cloud Shell button on the side of the code box and then hit Enter in your terminal. You can also click the copy button on the side of the code box and paste the command in the Cloud Shell terminal to run it.
@@ -50,7 +50,7 @@ Hit Next after you successfully selected your project.
 To scan your project against the CIS GCP Benchmark with InSpec, run:
 
 ```bash
-inspec-docker exec https://github.com/GoogleCloudPlatform/inspec-gcp-cis-benchmark.git -t gcp:// --input gcp_project_id={{project-id}}  --reporter cli json:{{project-id}}_scan.json
+inspec-docker exec https://github.com/lxndrblz/inspec-gcp-cis-benchmark.git -t gcp:// --input gcp_project_id={{project-id}}  --reporter cli json:{{project-id}}_scan.json
 ```
 
 This should take about two minutes to complete.
