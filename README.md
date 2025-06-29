@@ -1,27 +1,15 @@
 # GCP CIS 4.0.0 Benchmark Inspec Profile
 
-This repository holds the [Google Cloud Platform (GCP)](https://cloud.google.com/) [Center for Internet Security (CIS)](https://www.cisecurity.org) [version 4.0 Benchmark](https://www.cisecurity.org/benchmark/google_cloud_computing_platform/) [Inspec](https://www.inspec.io/) Profile.
+This repository holds the Google Cloud Platform (GCP) Center for Internet Security (CIS) Version 4.0 Benchmark [Inspec](https://www.inspec.io/) Profile. It's a fork of the stale GoogleCloudPlatform [repository](https://github.com/GoogleCloudPlatform/inspec-gcp-cis-benchmark), which hasn't been maintained in several years and is no longer executable.
 
-## 🚧 Required Disclaimer
-
-This is not an officially supported Google product. This code is intended to help users assess their security posture on the Google Cloud against the CIS Benchmark. This code is not certified by CIS.
+> [!WARNING]  
+> This is not an officially supported Google product. This code is intended to help users assess their security posture on the Google Cloud against the CIS Benchmark. This code is not certified by CIS.
 
 ## ✅ Coverage
 
-The following GCP CIS v4.0.0 Benchmark Controls are not covered:
+The profiles cover all controls of the current version. Due to missing APIs and/or required manual verfication, the following controls are currently not scored:
 
-- Identity and Access Management 1.3 - "Ensure that Security Key Enforcement is enabled for all admin accounts"
-- Identity and Access Management 1.12 - "Ensure API keys are not created for a project"
-- Identity and Access Management 1.13 - "Ensure API keys are restricted to use by only specified Hosts and Apps"
-- Identity and Access Management 1.14 - "Ensure API keys are restricted to only APIs that application needs access"
-- Identity and Access Management 1.15 - "Ensure API keys are rotated every 90 days"
-- Identity and Access Management 1.17 - "Ensure Secrets are Not Stored in Cloud Functions Environment Variables by Using Secret Manager"
-- Logging 2.14 - "Ensure 'Access Transparency' is 'Enabled'"
-- Networking 3.10 - "Use Identity Aware Proxy (IAP) to Ensure Only Traffic From Google IP Addresses are 'Allowed'"
-- VMs 4.10 - " Ensure That App Engine Applications Enforce HTTPS Connections"
-- VMs 4.12 - "Ensure the Latest Operating System Updates Are Installed On Your Virtual Machines in All Projects"
-- MySQL 6.1 - "Ensure that MySql database instances are secure"
-- BigQuery 7.4 - "Ensure that MySQL Database Instance does not allows root login from any Host"
+https://github.com/search?q=repo%3Alxndrblz%2Finspec-gcp-cis-benchmark%20cis_scored%3A%20false&type=code
 
 ## 🚀 Usage
 
@@ -49,29 +37,29 @@ Further details can be found here: <https://docs.chef.io/inspec/inputs/>
 
 Use this Cloud Shell Walkthrough for a hands-on example.
 
-[![Open this project in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/GoogleCloudPlatform/inspec-gcp-cis-benchmark&page=editor&tutorial=walkthrough.md)
+[![Open this project in Cloud Shell](http://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/lxndrblz/inspec-gcp-cis-benchmark&page=editor&tutorial=walkthrough.md)
 
 ### CLI Example
 
 #### 💎 Ruby Gem
 
-```
-# install inspec
-$ gem install inspec-bin -v 4.26.15 --no-document --quiet
+```sh
+# install the latest inspec version
+$ gem install cinc-auditor-bin --clear-sources -s https://rubygems.cinc.sh -s https://rubygems.org
 ```
 
-```
+```sh
 # make sure you're authenticated to GCP
 $ gcloud auth list
 ```
 
-```
+```sh
 # acquire credentials to use with Application Default Credentials
 $ gcloud auth application-default login
 
 ```
 
-```
+```sh
 # scan a project with this profile, replace {{project-id}} with your project ID
 $ inspec exec https://github.com/GoogleCloudPlatform/inspec-gcp-cis-benchmark.git -t gcp:// --input gcp_project_id={{project-id}}  --reporter cli json:{{project-id}}_scan.json
 ...snip...
@@ -80,30 +68,30 @@ Test Summary: 166 successful, 7 failures, 7 skipped
 ```
 
 #### 🐳 Docker
-```
+```sh
 # pull inspec image
-$ docker pull chef/inspec:4.26.15
+$ docker pull cincproject/auditor:5.22.80
 ```
 
-```
+```sh
 # make sure you're authenticated to GCP
 $ gcloud auth list
 ```
 
-```
+```sh
 # acquire credentials to use with Application Default Credentials
 $ gcloud auth application-default login
 
 ```
 
-```
+```sh
 # create function for convenience
-$ function inspec-docker { docker run -it -e GOOGLE_AUTH_SUPPRESS_CREDENTIALS_WARNINGS=true --rm -v ~/.config:/root/.config -v $(pwd):/share chef/inspec:4.26.15 "$@"; }
+$ function inspec-docker { docker run -it -e GOOGLE_AUTH_SUPPRESS_CREDENTIALS_WARNINGS=true --rm -v ~/.config:/root/.config -v $(pwd):/share cincproject/auditor:5.22.80 "$@"; }
 ```
 
-```
+```sh
 # scan a project with this profile, replace {{project-id}} with your project ID
-$ inspec-docker exec https://github.com/GoogleCloudPlatform/inspec-gcp-cis-benchmark.git -t gcp:// --input gcp_project_id={{project-id}}  --reporter cli json:{{project-id}}_scan.json
+$ inspec-docker exec https://github.com/lxndrblz/inspec-gcp-cis-benchmark.git -t gcp:// --input gcp_project_id={{project-id}}  --reporter cli json:{{project-id}}_scan.json
 ...snip...
 Profile Summary: 48 successful controls, 5 control failures, 7 controls skipped
 Test Summary: 166 successful, 7 failures, 7 skipped
